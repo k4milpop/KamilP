@@ -1,14 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://unpkg.com/alpinejs" defer></script>
 </head>
 
 <body>
+    <div x-data="{ count: 0, message: String }">
+        <button @click="count--" :disabled="count === 0">Zmniejsz</button>
+        <button @click="count++">Zwiększ</button>
+        <p x-text="'Aktualna wartość: ' + count"></p>
 
+        <div x-html="'<strong>Licznik:</strong> ' + count "></div>
+
+        <div x-show="count > 0">Masz jakieś punkty!</div>
+
+        <div class="card shadow" :class="{ 'active': isActive }">
+        </div>
+        <template x-if="count > 5">
+            <div>gratulacje masz wiecej niz 5 punktow</div>
+        </template>
+        <template x-for="n in count" :key="n">
+            <div x-text="'Element ' + n"></div>
+        </template>
+        <input type="text" x-model="message">
+        <p x-text="message"></p>
+
+        <div x-data="{message: 'ładowanie...'}"
+            x-init="setTimeout(() => { message = 'witaj w aplikacji alpine.JS!!!'}, 1000)">
+            <div x-text="message"></div>
+        </div>
+        <div x-data>
+            <input type="text" x-ref="inputField">
+            <button @click="$refs.inputField.focus()">ustaw fokus</button>
+            <button @click="$refs.inputField.value = 'wypełniona wartosc'">wypelnij</button>
+        </div>
+    </div>
+    <!--
+    <div x-data="{count:0, increament() { this.count++;}}"> <div><span x-text="count">
+    -->
 </body>
 
 </html>
